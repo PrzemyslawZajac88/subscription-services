@@ -2,18 +2,22 @@ package com.adidas.subscription.api;
 
 import com.adidas.subscription.producer.SubscriptionProducer;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.ObjectStreamClass;
 import java.util.Map;
-import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.requireNonNull;
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -22,17 +26,21 @@ import static org.springframework.http.ResponseEntity.ok;
 @AllArgsConstructor
 class SubscriptionController {
 
+    private static final Logger logger = LoggerFactory.getLogger(SubscriptionController.class);
+
     private final SubscriptionProducer producer;
 
     @PostMapping
     public ResponseEntity<SubscriptionResponse> subscribe(@RequestBody @Valid final SubscriptionForm subscription, final Errors errors) {
-        Objects.requireNonNull(subscription.getDateOfBirth());
+        final String requestId = UUID.randomUUID().toString();
+        logger.info("Request: {}, {}", requestId, subscription);
+
         if (errors.hasErrors()) {
             return badRequest()
-                    .body(new SubscriptionResponse(toErrors(errors)));
+                    .body(new SubscriptionResponse(requestId, toErrors(errors)));
         }
         producer.sendSubscription(subscription.toPayload());
-        return ok(new SubscriptionResponse());
+        return ok(new SubscriptionResponse(requestId));
     }
 
     private Map<String, String> toErrors(final Errors errors) {

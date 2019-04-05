@@ -1,13 +1,17 @@
 package com.adidas.subscription.subscription.consumer;
 
 import com.adidas.subscription.producer.SubscriptionEvent;
+import com.adidas.subscription.subscription.dto.SubscriptionDto;
 import io.vavr.control.Try;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 @AllArgsConstructor

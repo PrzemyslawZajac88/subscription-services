@@ -13,10 +13,9 @@ import java.time.LocalDate;
 
 @DynamoDBDocument
 @Getter
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-class SubscriptionDetails {
+public class SubscriptionDetails {
 
     private String lastName = "";
     private String firstName = "";

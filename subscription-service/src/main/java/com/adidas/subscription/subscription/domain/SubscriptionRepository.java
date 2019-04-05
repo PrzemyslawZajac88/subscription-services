@@ -1,8 +1,8 @@
 package com.adidas.subscription.subscription.domain;
 
 
-public interface SubscriptionRepository {
-    <T> void save(T subscription);
+interface SubscriptionRepository {
+    void save(Subscription subscription);
 
     boolean isExist(String newsletterId, String email);
 }

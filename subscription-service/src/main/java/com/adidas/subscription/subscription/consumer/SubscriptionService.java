@@ -14,21 +14,21 @@ class SubscriptionService {
 
     private static final Logger logger = LoggerFactory.getLogger(SubscriptionService.class);
 
+    private static final String EMAIL_FROM = "adidas@adids.com";
+
     private final SubscriptionFacade subscriptionFacade;
     private final MailSender mailSender;
 
     void storeSubscription(final SubscriptionEvent event) {
-        final boolean isSubscriptionExist = subscriptionFacade.isExist(event);
-
-        if (!isSubscriptionExist) {
-            final SubscriptionDto subscription = subscriptionFacade.saveSubscription(event);
-            mailSender.sendMail(new MailMessage(subscription.getEmail(), body(subscription)));
+        if (!subscriptionFacade.isExist(event)) {
+            final SubscriptionDto subscriptionDto = subscriptionFacade.saveSubscription(event);
+            mailSender.sendMail(createMailMessage(subscriptionDto));
         }
     }
 
-    private String body(final SubscriptionDto subscription) {
-        return "Hello "
-                + "FirstName: " + subscription.getFirstName()
-                + "" + subscription.getLastName();
+    private MailMessage createMailMessage(final SubscriptionDto subscriptionDto) {
+        return  new MailMessage(EMAIL_FROM, subscriptionDto.getEmail(),
+                subscriptionDto.getFirstName() +" "+ subscriptionDto.getLastName() );
     }
+
 }

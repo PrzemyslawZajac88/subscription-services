@@ -8,7 +8,7 @@
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>Subscription enpoint api</name>
+    <name>Subscription endpoint api</name>
 
     <parent>
         <groupId>com.adidas</groupId>
@@ -22,16 +22,26 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <spring-kafka.version>2.1.10.RELEASE</spring-kafka.version>
-        <spring-oauth.version>2.3.0.RELEASE</spring-oauth.version>
-        <spring-hystrix.version>2.0.2.RELEASE</spring-hystrix.version>
         <lombok.version>1.18.2</lombok.version>
-        <force.sdk.version>22.0.9-BETA</force.sdk.version>
         <force.rest.api.version>0.0.40</force.rest.api.version>
         <kafka.clients.version>1.1.1</kafka.clients.version>
-        <jjwt.version>0.10.5</jjwt.version>
+
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-rest</artifactId>
+            <version>2.0.4.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-rest-hal-browser</artifactId>
+            <version>3.1.6.RELEASE</version>
+        </dependency>
+
         <dependency>
             <groupId>com.adidas</groupId>
             <artifactId>subscription-events</artifactId>

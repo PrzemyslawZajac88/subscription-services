@@ -30,7 +30,6 @@ public class SubscriptionEvent {
 
     private final Set<Consent> consents;
 
-
     @JsonCreator
     SubscriptionEvent(
             @JsonProperty(value = "newsletterId") final NewsletterId newsletterId,
@@ -72,7 +71,8 @@ public class SubscriptionEvent {
         private final boolean accept;
 
         @JsonCreator
-        public Consent(@JsonProperty("key") final String key,
+        public Consent(
+                @JsonProperty("key") final String key,
                 @JsonProperty("accept") final boolean accept) {
             this.key = key;
             this.accept = accept;

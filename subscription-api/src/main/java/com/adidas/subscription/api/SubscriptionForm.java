@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -39,6 +40,7 @@ class SubscriptionForm {
     private final LocalDate dateOfBirth;
 
     @NotNull
+    @AssertTrue
     private final Boolean consent;
 
     @NotNull
