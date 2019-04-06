@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaOperations;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @AllArgsConstructor
 class SubscriptionProducerImpl implements SubscriptionProducer {
