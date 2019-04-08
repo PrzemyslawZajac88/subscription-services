@@ -1,5 +1,6 @@
 package com.adidas.subscription.email;
 
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,16 +9,12 @@ import org.springframework.stereotype.Service;
 
 import static org.springframework.integration.support.MessageBuilder.withPayload;
 
-@Service
-class MailSenderImpl implements MailSender {
+@AllArgsConstructor
+class MailSenderServiceImpl implements MailSenderService {
 
-    private static final Logger logger = LoggerFactory.getLogger(MailSenderImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(MailSenderServiceImpl.class);
 
     private final MessageChannel output;
-
-    public MailSenderImpl(@Qualifier("mailOutput") final MessageChannel output) {
-        this.output = output;
-    }
 
     @Override
     public void sendMail(final MailMessage mailMessage) {

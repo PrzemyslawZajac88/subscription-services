@@ -9,9 +9,10 @@ import lombok.ToString;
 public class MailMessage {
     private final String from;
     private final String to;
+    private final String subject;
     private final String body;
 
-    Object toEvent() {
-        return new MailMessageEvent(from, to, body);
+    MailMessageEvent toEvent() {
+        return new MailMessageEvent(from, to, subject, body);
     }
 }

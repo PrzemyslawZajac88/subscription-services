@@ -42,17 +42,16 @@ class SubscriptionForm {
     @NotNull
     @AssertTrue
     private final Boolean consent;
-
+    @NotNull
+    private final Gender gender;
     @NotNull
     private final String newsletterId;
 
     private final String firstName;
-    private final Gender gender;
 
     @JsonCreator
     SubscriptionForm(@JsonProperty(value = "lastName") final String lastName,
                      @JsonProperty(value = "email") final String email,
-
 
                      @JsonProperty(value = "dateOfBirth") final LocalDate dateOfBirth,
 

@@ -1,10 +1,12 @@
 package com.adidas.subscription.producer;
 
+import com.adidas.subscription.producer.exception.CannotSendSubscriptionException;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaOperations;
-import org.springframework.security.access.prepost.PreAuthorize;
+
+import java.util.concurrent.ExecutionException;
 
 @AllArgsConstructor
 class SubscriptionProducerImpl implements SubscriptionProducer {
@@ -16,7 +18,11 @@ class SubscriptionProducerImpl implements SubscriptionProducer {
 
     @Override
     public void sendSubscription(final SubscriptionEvent event) {
-        producer.send(topicName, event);
+        try {
+            producer.send(topicName, event).get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new CannotSendSubscriptionException(e);
+        }
 
         logger.info("Send subscription event {}", event);
     }
